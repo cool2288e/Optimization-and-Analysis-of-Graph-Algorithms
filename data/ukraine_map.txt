@@ -1,0 +1,11 @@
+Kyiv Lviv 540
+Kyiv Odessa 475
+Kyiv Kharkiv 480
+Kyiv Dnipro 480
+Lviv Ternopil 130
+Lviv Lutsk 150
+Ternopil Chernivtsi 170
+Odessa Mykolaiv 130
+Mykolaiv Kherson 70
+Kharkiv Dnipro 215
+Dnipro Zaporizhzhia 85
