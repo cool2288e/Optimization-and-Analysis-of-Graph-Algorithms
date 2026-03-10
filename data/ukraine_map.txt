@@ -1,4 +1,5 @@
 Kyiv Lviv 540
+Kyiv Poltava 306
 Kyiv Odessa 475
 Kyiv Kharkiv 480
 Kyiv Dnipro 480
