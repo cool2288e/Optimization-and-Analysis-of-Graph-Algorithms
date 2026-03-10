@@ -20,13 +20,13 @@ private:
     std::map<std::string, std::vector<Edge>> adjList;
 
 public:
-    // Додавання маршруту між містами
+
     void addRoute(const std::string& city1, const std::string& city2, int dist) {
         adjList[city1].push_back({city2, dist});
         adjList[city2].push_back({city1, dist});
     }
 
-    // Завантаження даних з текстового файлу
+
     void loadFromFile(const std::string& filename) {
         std::ifstream file(filename);
         if (!file.is_open()) {
@@ -40,13 +40,13 @@ public:
         }
     }
 
-    // Візуалізація карти у вигляді дерева зв'язків
+
     void visualizeMap() {
         std::cout << "\n КАРТА УКРАЇНИ \n" << std::endl;
         for (auto const& [city, neighbors] : adjList) {
             std::cout << "  [" << city << "]" << std::endl;
             for (size_t i = 0; i < neighbors.size(); ++i) {
-                // Використовуємо прості ASCII символи, які працюють у Windows
+
                 std::string branch = (i == neighbors.size() - 1) ? "  \\-- " : "  |-- ";
                 std::cout << branch << neighbors[i].to << " (" << neighbors[i].distance << " km)" << std::endl;
             }
@@ -55,7 +55,7 @@ public:
         std::cout << "=================================\n" << std::endl;
     }
 
-    // Алгоритм Дейкстри для пошуку найкоротшого шляху
+
     void findShortestPath(const std::string& start, const std::string& finish) {
         std::map<std::string, int> distances;
         std::map<std::string, std::string> previous;
@@ -97,8 +97,7 @@ public:
             std::cout << "Shortest distance from " << start << " to " << finish << ": " << distances[finish] << " km" << std::endl;
             std::vector<std::string> path;
             for (std::string v = finish; v != ""; v = previous[v]) path.size() > 0 ? path.push_back(v) : path.push_back(v); 
-            
-            // Очищення та відновлення шляху
+
             path.clear();
             for (std::string v = finish; v != ""; v = previous[v]) {
                 path.push_back(v);
