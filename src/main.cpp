@@ -10,7 +10,7 @@ int main() {
     }
     mapTexture.setSmooth(true); 
     sf::Sprite mapSprite(mapTexture);
-    sf::RenderWindow window(sf::VideoMode({1000, 800}), "Навігатор Полтави");
+    sf::RenderWindow window(sf::VideoMode({1000, 800}), L"Навігатор Полтави");
     sf::View view = window.getDefaultView();
     bool isDragging = false;
     sf::Vector2i oldMousePos;
@@ -68,7 +68,7 @@ int main() {
         }
         for (auto const& [name, node] : poltava.cities) {
             sf::CircleShape dot(6.f); 
-            dot.setFillColor(sf::Color::Red); 
+            dot.setFillColor(sf::Color::Green); 
             dot.setPosition(sf::Vector2f(node.x - 6.f, node.y - 6.f));
             window.draw(dot);
         }
