@@ -1,26 +1,59 @@
-#include "../include/graph.h"
-#include <windows.h>
-int main()
- {SetConsoleOutputCP(65001);
-    CityGraph ukraine;
-    
-// Завантажуємо дані про міста та відстані з твого файлу
-    ukraine.loadFromFile("data/ukraine_map.txt");
+#include <SFML/Graphics.hpp>
+#include <iostream>
+int main() {
+    sf::RenderWindow window(sf::VideoMode({1000, 800}), "Карта України");
+    sf::Texture mapTexture;
+    if (!mapTexture.loadFromFile("data/image/map.png")){
+        std::cout <<"Помилка: не вдалося знайти файл карти!" <<std::endl;
+        std::cin.get();
+        return -1;
+    }
+    sf::Sprite mapSprite(mapTexture);
 
-//ДОДАЄМО ЦЕЙ БЛОК ДЛЯ ВІЗУАЛІЗАЦІЇ КАРТИ
-    std::cout << "--- Ukraine Road Map (Visual Graph) ---" << std::endl;
-    ukraine.visualizeMap(); 
+    // Камера
+    sf::View view = window.getDefaultView();
 
-    std::cout << "--- Shortest Path Calculation ---" << std::endl;
-    
-// Шукаємо шлях між містами (наприклад, Київ та Одеса)
-    ukraine.findShortestPath("Kyiv", "Odessa");
+    bool isDragging = false;
+    sf::Vector2i oldMousePos;
 
-    std::cout << "\nPress Enter to exit..." << std::endl;
-    
-// Чекаємо натискання клавіші, щоб вікно не закрилося
-    std::cin.clear();
-    std::cin.get(); 
-
+    while (window.isOpen()){
+        while (const std::optional event = window.pollEvent()){
+            if (event->is<sf::Event::Closed>()){
+                window.close();
+            }
+            // Зум
+            if (const auto* scroll = event->getIf<sf::Event::MouseWheelScrolled>()){
+                if (scroll->delta > 0) {
+                    view.zoom(0.9f); // Наближення
+                } else if (scroll->delta < 0){
+                    view.zoom(1.1f); // Віддалення 
+                }
+            }
+            if (const auto* mouseBtn = event->getIf<sf::Event::MouseButtonPressed>()){
+                if (mouseBtn->button == sf::Mouse::Button::Left){
+                    isDragging = true;
+                    oldMousePos = sf::Mouse::getPosition(window);
+                }
+            }
+            if (const auto* mouseBtn = event->getIf<sf::Event::MouseButtonReleased>()){
+                if (mouseBtn->button == sf::Mouse::Button::Left){
+                    isDragging = false;
+                }
+            }
+            if (const auto* mouseMove = event->getIf<sf::Event::MouseMoved>()){
+                if (isDragging){
+                    sf::Vector2i newMousePos = sf::Mouse::getPosition(window);
+                    sf::Vector2f delta = window.mapPixelToCoords(oldMousePos) - window.mapPixelToCoords(newMousePos);
+                    view.move(delta);
+                    oldMousePos = newMousePos;
+                }
+            }
+        }
+        window.clear(sf::Color(200, 220, 240));
+        window.setView(view);
+        window.draw(mapSprite);
+        window.display();
+        
+    } 
     return 0;
 }

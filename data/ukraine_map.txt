@@ -1,12 +1,4 @@
-Kyiv Lviv 540
-Kyiv Poltava 306
-Kyiv Odessa 475
-Kyiv Kharkiv 480
-Kyiv Dnipro 480
-Lviv Ternopil 130
-Lviv Lutsk 150
-Ternopil Chernivtsi 170
-Odessa Mykolaiv 130
-Mykolaiv Kherson 70
-Kharkiv Dnipro 215
-Dnipro Zaporizhzhia 85
+Centr Zykina 300
+Zykina Sad 150
+Sad Altanka 400
+Centr Altanka 500
